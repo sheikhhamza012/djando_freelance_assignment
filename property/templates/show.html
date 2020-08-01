@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>View ad</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <style>
+        body{
+          background-color: #f0f0f0;
+        }
+        .container{
+            margin-top: 50px;
+        }
+        .dropdown{
+          display: inline;
+        }
+        @media only screen and (min-width: 500px) {
+            .height{
+              height:100vh;
+
+            }
+        }
+    </style>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a href="home.html" class="navbar-brand" href="#">
+              <img src="../img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+              RentRoom
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav" style="margin-right: auto;">
+                  <li class="nav-item">
+                    <a href="/" class="nav-link" href="#">My Ads</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="report.html" class="nav-link" href="#">Report</a>
+                  </li>
+                </ul>
+                <a  href="/logout" >
+                  <i class="fa fa-user" style="color:black" aria-hidden="true"></i>
+                </a>
+            </div>
+        </nav>  
+    <div class="container">
+        {% if prop.owner.id == current_user.id %}
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                
+                <a href="/properties/edit?id={{prop.id}}" class="btn btn-info" style="color:white">Edit</a>
+                <a href="/properties/delete?id={{prop.id}}" class="btn btn-danger" style="color:white">Delete</a>
+                <a href="/properties/change_list_status?id={{prop.id}}" class="btn btn-info" style="color:white">{% if props.listed%}unlist{% else %}list{% endif %}</a>
+               
+
+          </div>
+        </div>
+        {% endif %}
+        <br/><br/>
+        <div class="row">
+          <div class="col-md-7">
+            
+            <div class="row">
+              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h4>{{prop.title}}</h4>
+              </div>
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="text-align: right;">
+                <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                <h5 style="display: inline;">{{prop.available_from}}</h5>
+              </div>
+            </div>
+            
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" ></li>
+              </ol>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img class="d-block w-100" src="{{prop.property_pics.url}}" alt="First slide">
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+            
+            <br/>
+            <p><strong>Rent:</strong> ${{prop.rent}}</p>
+            <p><strong>Bond ammount:</strong> ${{prop.bond_amt}}</p>
+            <p><strong>Address:</strong>{{prop.address}}</p>
+            <p><strong>Description:</strong> {{prop.description}}</p>
+          </div>
+
+          
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <h4>Landlord</h4> 
+            <div class="row">
+              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">  
+                <img src="../img/login_cover.jpg" style="background:#333; width:50px;height:50px;border-radius:50px" alt="">
+              </div>
+              
+              <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                <span>
+                  <strong> Name: </strong> {{prop.owner.name}}<br/>
+                  <strong> Email:  </strong>{{prop.owner.email}}<br/>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h4>Comments</h4>
+            {% for c in comments %}
+            <div class="row" style="margin-bottom: 40px;">
+              <div class="col-sm-1">
+                <img src="https://lh3.googleusercontent.com/proxy/ZnBbbOQ9mDdmH0e6zcYCOSWJGpou4w4DcRCUvWFIjbVGEgs-Z_c9eDECfEIkC237AKYKf0WTHc_HHUDqC1h6PM7Z2DEGhrG3XFYOEo68WrQ7JRKSegMhMcZ_cdp0WvK-HU9VyfvT" style="background:#333; width:50px;height:50px;border-radius:50px" alt="">
+              </div>
+              <div class="col-sm-11">
+                  <div class="row">
+                      <strong style="font-size: 14px;">
+                      {{c.owner.name}}
+                      </strong>
+                  </div>
+                  <div class="row">
+                    {{c.body}}
+                  </div>
+              </div>
+
+          </div>
+          {% endfor %}
+
+          </div>
+        </div>
+        
+
+        
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <form action="/comments/" method="post">
+              {% csrf_token %}
+              <input type="hidden" value="{{prop.id}}" name="prop_id"/>
+              <textarea name="body" style="width: 100%;"></textarea>
+              <button class="btn btn-primary" type="submit">Comment</button>
+            </form>
+          </div>
+        </div>
+        
+
+    </div>          
+   </body>
+</html>
+        

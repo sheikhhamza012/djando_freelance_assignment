@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Title Page</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <style>
+      body{
+        background-color: #f0f0f0;
+      }
+      .container-fluid{
+          
+      }.dropdown{
+        display: inline;
+      }
+      @media only screen and (min-width: 500px) {
+          .height{
+            height:100vh;
+
+          }
+      }
+      .col-md-3{
+        margin-top: 50px;
+      }
+    </style>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="home.html" class="navbar-brand" href="#">
+            <img src="../img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            RentRoom
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav" style="margin-right: auto;">
+                <li class="nav-item">
+                    <a href="/dashboard" class="nav-link" title="View ads you posted" href="#">My Ads</a>
+                </li>
+                <li class="nav-item">
+                    <a href="report.html" class="nav-link" title="View usage report" href="#">Report</a>
+                </li>
+            </ul>
+            <a  href="/logout" ><i class="fa fa-user" style="color:black" aria-hidden="true"></i>            </a>
+        </div>
+      </nav>
+      {% if messages %} 
+      {%for message in messages %} 
+      <div class="alert alert-success" role="alert">
+          {{message}}
+      </div>
+      {%endfor%} {% endif %}
+      <div class="container-fluid">
+          
+          <div class="row">
+              <div class=" col-md-12">
+                  
+                  <div class="row">
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 50px;">
+                              <a href="/properties/new" title="post an ad"  class="btn btn-primary">+Add</a>
+                          
+                          <br />
+                          <br />
+                          <h2>Approved</h2>
+                          <div class="row">
+                            {% for p in approved %}
+                              <div class="col-md-3 ">
+                                <div class="card" style="width: 18rem;">
+                                  <img class="card-img-top" src="{{p.property_pics.url}}" alt="Card image cap">
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{p.title}}</h5>
+                                    <p class="card-text">
+                                      <strong>Address: </strong>  {{p.address}} <br/>
+                                      <strong>Rent: </strong> {{p.rent}} <br/>
+                                      <strong>Description: </strong>  {{p.description}} <br/>
+                                    </p>
+                                    <a href="/properties/edit?id={{p.id}}" title="edit this ad" class="btn btn-primary" style="width:100%">Edit</a>
+                                    <a href="/properties/delete?id={{p.id}}" title="delete this ad" class="btn btn-danger" style="width:100%">Delete</a>
+                                    <a href="/properties/view?id={{p.id}}" title="view this ad" class="btn btn-info" style="width:100%">View</a>
+                                    <a href="/properties/change_list_status?id={{p.id}}" title="unlist this ad" class="btn btn-secondary" style="width:100%">unlist</a>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div> 
+                          <h2>Unlisted</h2>
+                          <div class="row">
+                            {% for p in unlisted %}
+                              <div class="col-md-3 ">
+                                <div class="card" style="width: 18rem;">
+                                  <img class="card-img-top" src="{{p.property_pics.url}}" alt="Card image cap">
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{p.title}}</h5>
+                                    <p class="card-text">
+                                      <strong>Address: </strong>  {{p.address}} <br/>
+                                      <strong>Rent: </strong> {{p.rent}} <br/>
+                                      <strong>Description: </strong>  {{p.description}} <br/>
+                                    </p>
+                                    <a href="/properties/edit?id={{p.id}}" title="edit this ad" class="btn btn-primary" style="width:100%">Edit</a>
+                                    <a href="/properties/delete?id={{p.id}}" title="delete this ad" class="btn btn-danger" style="width:100%">Delete</a>
+                                    <a href="/properties/view?id={{p.id}}" title="view this ad" class="btn btn-info" style="width:100%">View</a>
+                                    <a href="/properties/change_list_status?id={{p.id}}" title="list this ad" class="btn btn-secondary" style="width:100%">list</a>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div> 
+                          <br />
+                          <h2>Rejected</h2>
+                          <div class="row">
+                            {% for p in rejected %}
+                              <div class="col-md-3 ">
+                                <div class="card" style="width: 18rem;">
+                                  <img class="card-img-top" src="{{p.property_pics.url}}" alt="Card image cap">
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{p.title}}</h5>
+                                      <p class="card-text">
+                                        <strong>Address: </strong>  {{p.address}} <br/>
+                                        <strong>Rent: </strong> {{p.rent}} <br/>
+                                        <strong>Description: </strong>  {{p.description}} <br/>
+                                      </p>
+                                    <a href="/properties/edit?id={{p.id}}" title="edit this ad" class="btn btn-primary" style="width:100%">Edit</a>
+                                    <a href="/properties/delete?id={{p.id}}" title="delete this ad" class="btn btn-danger" style="width:100%">Delete</a>
+                                    <a href="/properties/view?id={{p.id}}" title="view this ad" class="btn btn-info" style="width:100%">View</a>
+                                    <a href="/properties/change_list_status?id={{p.id}}" title="unlist this ad" class="btn btn-secondary" style="width:100%">unlist</a>
+                                  </div>
+                                </div>
+                              </div>
+                              {% endfor %}
+                          </div> 
+                          <br />
+                          <h2>Pending</h2>
+                          <div class="row">
+                            {% for p in pending %}
+                              <div class="col-md-3 ">
+                                <div class="card" style="width: 18rem;">
+                                  <img class="card-img-top" src="{{p.property_pics.url}}" alt="Card image cap">
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{p.title}}</h5>
+                                      <p class="card-text">
+                                        <strong>Address: </strong>  {{p.address}} <br/>
+                                        <strong>Rent: </strong> {{p.rent}} <br/>
+                                        <strong>Description: </strong>  {{p.description}} <br/>
+                                      </p>
+                                    <a href="/properties/edit?id={{p.id}}" title="edit this ad" class="btn btn-primary" style="width:100%">Edit</a>
+                                    <a href="/properties/delete?id={{p.id}}" title="delete this ad" class="btn btn-danger" style="width:100%">Delete</a>
+                                    <a href="/properties/view?id={{p.id}}" title="view this ad" class="btn btn-info" style="width:100%">View</a>
+                                    <a href="/properties/change_list_status?id={{p.id}}" title="unlist this ad" class="btn btn-secondary" style="width:100%">unlist</a>
+                                  </div>
+                                </div>
+                              </div>
+                              {% endfor %}
+                          </div> 
+
+                      </div>
+                  </div>
+                  
+              </div>
+              
+          </div>
+          
+      </div>
+      
+      
+      
+      
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
+        

@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Add an ad</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        
+    </head>
+    <script>
+
+    </script>
+    <style>
+        .vertical-center {
+            min-height: 100%;  
+            min-height: 100vh; 
+            background : inherit;
+            display: flex;
+            align-items: center;
+        }
+        .container{
+            padding: 30px;
+        }
+        input[type="radio"]{
+            margin:0px 10px;
+        }
+    </style>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a href="home.html" class="navbar-brand" href="#">
+                <img src="../img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                RentRoom
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav" style="margin-right: auto;">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html" title="View ads you posted" href="#">My Ads</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="report.html" class="nav-link" title="View usage report" href="#">Report</a>
+                    </li>
+                </ul>
+                <a  href="login.html" ><i class="fa fa-user" style="color:black" aria-hidden="true"></i>            </a>
+            </div>
+        </nav>
+        {% if messages %} 
+        {%for message in messages %} 
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {%endfor%} {% endif %}
+
+        <div class="jumbotron vertical-center">
+            <div class="container">
+                <h2> Post An Ad</h2>
+                
+                <form  action="/properties/update?id={{prop.id}}" method="post"  enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <input type="file" id="property_pics" name="property_pics"   title="add cover images" multiple class="form-control"   placeholder="images">
+                        <label for="exampleInputEmail1">Images</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Available from</label>
+                        <input name="available_from" type="date" value="{{prop.available_from|date:'Y-m-d' }}" title="number of rooms available" class="form-control" id="rooms" placeholder="No. of rooms">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Rent</label>
+                        <input type="number" name="rent" class="form-control" value="{{prop.rent}}"   title="rent of property" id="rent" placeholder="Rent">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Bond Ammount</label>
+                        <input type="number" name="bond_amt"  value="{{prop.bond_amt}}"  class="form-control" title="initial bond ammount" id="bond" placeholder="Bond Ammount">
+                   </div>
+                   
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Title</label>
+                        <input type="text" name="title" class="form-control"  value="{{prop.title}}"  title="Address" id="address" placeholder="Address">
+                   </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Address</label>
+                        <input type="text" name="address" class="form-control" title="Address"  value="{{prop.address}}"  id="address" placeholder="Address">
+                   </div>
+                   
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Description</label>
+                        <textarea name="description" class="form-control"   title="ad description " id="desc" placeholder="Description">
+                            {{prop.description}}
+                        </textarea>
+                   </div>
+                   
+                    <button type="submit" title="submit for review" class="btn btn-block btn-primary">Submit</button>
+                </form>
+            </div>
+        </div> 
+       
+    </body>
+</html>
+        
