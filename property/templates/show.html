@@ -46,7 +46,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav" style="margin-right: auto;">
                   <li class="nav-item">
-                    <a href="/" class="nav-link" href="#">My Ads</a>
+                    <a href="/" class="nav-link" href="#">Home</a>
                   </li>
                   <li class="nav-item">
                     <a href="report.html" class="nav-link" href="#">Report</a>
@@ -66,6 +66,66 @@
                 <a href="/properties/delete?id={{prop.id}}" class="btn btn-danger" style="color:white">Delete</a>
                 <a href="/properties/change_list_status?id={{prop.id}}" class="btn btn-info" style="color:white">{% if props.listed%}unlist{% else %}list{% endif %}</a>
                
+
+          </div>
+        </div>
+        {% endif %}
+       
+       
+        {% if reviewer %}
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                
+            <a href="#" data-toggle="modal" data-target="#approve{{prop.id}}" title="edit this ad" class="btn btn-primary" style="width:100%">Approve</a>
+            <a href="#" title="delete this ad" class="btn btn-danger" data-toggle="modal" data-target="#disapprove{{prop.id}}"  style="width:100%">disapprove</a>
+          
+            <div class="modal fade" id="approve{{prop.id}}" tabindex="-1" role="dialog" aria-labelledby="#approve{{p.id}}" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Approve property</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h2>Approve: {{prop.title}}</h2>
+                    <form action="/properties/approve?id={{prop.id}}" method="post">
+                      <textarea required class="form-control" name="reason" id="" cols="30" rows="10"></textarea>
+                      {% csrf_token %}
+
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+           
+           
+           
+            <div class="modal fade" id="disapprove{{prop.id}}" tabindex="-1" role="dialog" aria-labelledby="#approve{{p.id}}" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Disapprove property</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h2>Disapprove: {{prop.title}}</h2>
+                    <form action="/properties/disapprove?id={{prop.id}}" method="post">
+                      <textarea required class="form-control" name="reason" id="" cols="30" rows="10"></textarea>
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -105,6 +165,7 @@
             
             <br/>
             <p><strong>Rent:</strong> ${{prop.rent}}</p>
+            <p><strong>Rooms:</strong> {{prop.rooms}}</p>
             <p><strong>Bond ammount:</strong> ${{prop.bond_amt}}</p>
             <p><strong>Address:</strong>{{prop.address}}</p>
             <p><strong>Description:</strong> {{prop.description}}</p>

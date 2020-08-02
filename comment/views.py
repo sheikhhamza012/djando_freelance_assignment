@@ -7,6 +7,7 @@ from authentication.models import User
 from property.models import Property
 from comment.models import Comment
 
+#CREATE A COMMENT TO THE POST
 def create(request):
     user = User.objects.get(id=request.session['id'])
     prop = Property.objects.get(id=request.POST['prop_id'])

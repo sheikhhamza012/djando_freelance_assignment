@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 
+#VALIDATION
 class UserManager(models.Manager):
     def validator(self, postData):
         errors = {}
@@ -16,7 +17,7 @@ class UserManager(models.Manager):
         if postData['password'] != postData['cpassword']:
             errors['confirm_password'] = "Password does not match!"
         return errors
-
+#MODEL
 class User(models.Model):
     user_type = models.CharField(max_length=255)
     name = models.CharField(max_length=255)

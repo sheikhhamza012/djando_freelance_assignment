@@ -1,6 +1,8 @@
 from django.urls import path
 from django.conf.urls import include,url
 from . import views
+
+#FOR '/AUTHENTICATION'
 urlpatterns = [
    path("",views.login),
    path("users/create",views.create),

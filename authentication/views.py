@@ -1,17 +1,23 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from .models import User
-# Create your views here.
+
+
+
+#SHOW SIGN UP PAGE
 def new(request):
     return render(request,'signup.html')
 
+#SHOW LOGIN PAGE
 def login(request):
     if 'id' in request.session:
         return  redirect('/dashboard')
     return render(request,'login.html')
 
+#SHOW CREATE USER RECIEVED FROM SIGNUP
 def create(request):
     errors = User.objects.validator(request.POST)
+    #MAP ERRORS
     if len(errors):
         for tag, error in errors.items():
             messages.error(request, error, extra_tags=tag)
@@ -22,10 +28,13 @@ def create(request):
     messages.success(request, "Registeration complete , you can login now ")
     return redirect('/')
 
+#SHOW MAKE LOGIN FROM LOGIN PAGE
 def create_session(request):
+    #VALIDATION
     if (len(request.POST['email'])>0 or len(request.POST['password'])>0):
         if (User.objects.filter(email=request.POST['email']).exists()):
             user = User.objects.filter(email=request.POST['email'])[0]
+            #CONFIRM PASSWORD
             if (request.POST['password']== user.password):
                 request.session['id'] = user.id
                 return redirect('/dashboard')   
@@ -36,12 +45,7 @@ def create_session(request):
     messages.error(request, "please fill the form")
     return redirect('/')
 
-def get_user(request):
-    user=[]
-    if 'id' in request.session:
-        user = User.objects.get(id=request.session['id'])
-    return user
-    
+#LOGOUT USER
 def logout(request):
     del request.session['id']
     return redirect('/')
